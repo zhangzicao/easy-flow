@@ -7,7 +7,7 @@ var dataD = {
             type: 'task',
             left: '18px',
             top: '223px',
-            ico: 'el-icon-user-solid',
+            ico: 'el-icon-user',
             state: 'success'
         },
         {

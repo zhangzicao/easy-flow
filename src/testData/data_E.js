@@ -5,7 +5,7 @@ var dataE = {
             id: 'nodeA',
             name: '流程D-节点A',
             type: 'task',
-            ico: 'el-icon-user-solid',
+            ico: 'el-icon-user',
             state: 'success'
         },
         {

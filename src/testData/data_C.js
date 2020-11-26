@@ -7,7 +7,7 @@ let dataC = {
             type: 'task',
             left: '400px',
             top: '15px',
-            ico: 'el-icon-user-solid'
+            ico: 'el-icon-user'
         },
         {
             id: 'nodeB',

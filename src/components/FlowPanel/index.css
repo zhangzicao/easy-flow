@@ -1,24 +1,11 @@
 /*画布容器*/
-#efContainer {
-    position: relative;
-    overflow: scroll;
-    flex: 1;
+.ef-container{
+  flex: 1;
+  overflow: scroll;
+  position: relative;
+  background: url(gooflow_blank.gif) repeat #e7e7e7;
 }
 
-/*顶部工具栏*/
-.ef-tooltar {
-    padding-left: 10px;
-    box-sizing: border-box;
-    height: 42px;
-    line-height: 42px;
-    z-index: 3;
-    border-bottom: 1px solid #DADCE0;
-}
-
-.jtk-overlay {
-    cursor: pointer;
-    color: #4A4A4A;
-}
 
 
 /*节点菜单*/
@@ -26,28 +13,29 @@
     cursor: pointer;
     height: 32px;
     line-height: 32px;
-    width: 225px;
     display: block;
     font-weight: bold;
     color: #4A4A4A;
     padding-left: 5px;
+  margin-top: 10px;
 }
 
 .ef-node-pmenu:hover {
     background-color: #E0E0E0;
 }
 
-.ef-node-menu-li {
-    color: #565758;
-    width: 150px;
+.ef-node-menu-node {
     border: 1px dashed #E0E3E7;
     margin: 5px 0 5px 0;
     padding: 5px;
     border-radius: 5px;
-    padding-left: 8px;
+    text-align: center;
+}
+.ef-node-menu-ul :focus{
+  outline: none;
 }
 
-.ef-node-menu-li:hover {
+.ef-node-menu-node:hover {
     /* 设置移动样式*/
     cursor: move;
     background-color: #F0F7FF;
@@ -55,10 +43,19 @@
     border-left: 4px solid #1879FF;
     padding-left: 5px;
 }
+.ef-node-menu-node i{
+  font-size: 18px;
+}
+.ef-node-menu-li_start{
+  color: #4caf50;
+}
+.ef-node-menu-li_end{
+  color: #e33;
+}
 
 .ef-node-menu-ul {
     list-style: none;
-    padding-left: 20px
+    padding: 0 10px
 }
 
 /*节点的最外层容器*/
@@ -66,10 +63,12 @@
     position: absolute;
     display: flex;
     width: 170px;
-    height: 32px;
-    border: 1px solid #E0E3E7;
+    height: auto;
+    min-height: 32px;
+    border: 1px solid #d7d7d7;
     border-radius: 5px;
     background-color: #fff;
+    z-index: 21;
 }
 
 .ef-node-container:hover {
@@ -77,16 +76,46 @@
     cursor: move;
     background-color: #F0F7FF;
     /*box-shadow: #1879FF 0px 0px 12px 0px;*/
-    background-color: #F0F7FF;
     border: 1px dashed #1879FF;
 }
 
-/*节点激活样式*/
-.ef-node-active {
-    background-color: #F0F7FF;
-    /*box-shadow: #1879FF 0px 0px 12px 0px;*/
-    background-color: #F0F7FF;
-    border: 1px solid #1879FF;
+/*特殊节点*/
+.ef-node_round{
+  border-radius: 200px;
+  width: auto;
+  min-width: 34px;
+}
+.ef-node_round .ef-node-text{
+  margin-right: 10px;
+  width: auto;
+}
+.ef-node_round .ef-node-text.is-empty{
+  margin: 0;
+}
+.ef-node_round .ef-node-left{
+  display: none;
+}
+.ef-node_round .ef-node-drag.ef-node-drag-area {
+  font-size: 0;
+  color: transparent;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 60%;
+  z-index: 2;
+  width: auto;
+  margin-left: 0;
+}
+.ef-node_start .ef-node-left-ico{
+  color: #4caf50!important;
+}
+.ef-node_end .ef-node-left-ico{
+  color: #e33!important;
+}
+.ef-node_start .ef-node-text,.ef-node_end .ef-node-text{
+  color: #565758!important;
 }
 
 /*节点左侧的竖线*/
@@ -100,9 +129,12 @@
 .ef-node-left-ico {
     line-height: 32px;
     margin-left: 8px;
+    font-size: 18px;
+    font-weight: bold;
+  color: #1879ff;
 }
 
-.ef-node-left-ico:hover {
+.flow-node-drag:hover {
     /* 设置拖拽的样式 */
     cursor: crosshair;
 }
@@ -119,15 +151,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
-}
-
-/*节点右侧的图标*/
-.ef-node-right-ico {
-    line-height: 32px;
-    position: absolute;
-    right: 5px;
-    color: #84CF65;
-    cursor: default;
 }
 
 /*节点的几种状态样式*/
@@ -222,4 +245,33 @@
 
 .ef-drop-hover{
     border: 1px dashed #1879FF;
+}
+
+.legend-show-list{
+  position: absolute;
+  z-index: 30;
+  left: 80px;
+  bottom: 30px;
+  background: #ffffff;
+  padding: 5px;
+  box-shadow: 1px 1px 0 0 rgba(0,0,0,0.1);
+  border-radius: 2px;
+}
+.legend-show__item{
+  display: inline-block;
+  float: left;
+  margin-right: 30px;
+  color: #666666;
+}
+.legend-show__icon{
+  display: inline-block;
+  float: left;
+  width: 14px;
+  height: 12px;
+  border: 1px solid #ddd;
+  border-left: 4px solid #ddd;
+  background: #f6f6f6;
+  border-radius: 2px;
+  margin-right: 12px;
+  margin-top: 3px;
 }

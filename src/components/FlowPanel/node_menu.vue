@@ -1,13 +1,15 @@
 <template>
     <div class="flow-menu" ref="tool">
-        <div v-for="menu  in  menuList" :key="menu.id">
+        <div v-for="menu in menuList" :key="menu.id">
             <span class="ef-node-pmenu" @click="menu.open = !menu.open"><i :class="{'el-icon-caret-bottom': menu.open,'el-icon-caret-right': !menu.open}"></i>&nbsp;{{menu.name}}</span>
             <ul v-show="menu.open" class="ef-node-menu-ul">
-                <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
-                    <li v-for="subMenu in menu.children" class="ef-node-menu-li" :key="subMenu.id" :type="subMenu.type">
-                        <i :class="subMenu.ico"></i> {{subMenu.name}}
-                    </li>
-                </draggable>
+                <el-tooltip v-for="subMenu in menu.children" effect="dark" :content="subMenu.name" placement="right-start" :key="subMenu.id">
+                  <li :class="'ef-node-menu-li ef-node-menu-li_'+subMenu.type">
+                    <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
+                      <div class="ef-node-menu-node" :type="subMenu.type"><i :class="subMenu.ico"></i></div>
+                    </draggable>
+                  </li>
+                </el-tooltip>
             </ul>
         </div>
     </div>
@@ -41,46 +43,35 @@
                     {
                         id: '1',
                         type: 'group',
-                        name: '开始节点',
-                        ico: 'el-icon-video-play',
+                        name: '节点',
                         open: true,
                         children: [
                             {
                                 id: '11',
-                                type: 'timer',
-                                name: '数据接入',
-                                ico: 'el-icon-time',
+                                type: 'start',
+                                name: '开始',
+                                ico: 'el-icon-video-play',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '12',
                                 type: 'task',
-                                name: '接口调用',
-                                ico: 'el-icon-odometer',
-                                // 自定义覆盖样式
-                                style: {}
-                            }
-                        ]
-                    },
-                    {
-                        id: '2',
-                        type: 'group',
-                        name: '结束节点',
-                        ico: 'el-icon-video-pause',
-                        open: true,
-                        children: [
-                            {
-                                id: '21',
-                                type: 'end',
-                                name: '流程结束',
-                                ico: 'el-icon-caret-right',
+                                name: '任务节点',
+                                ico: 'el-icon-user',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
-                                id: '22',
-                                type: 'over',
-                                name: '数据清理',
-                                ico: 'el-icon-shopping-cart-full',
+                                id: '13',
+                                type: 'chat',
+                                name: '决策节点',
+                                ico: 'el-icon-chat-line-round',
+                                // 自定义覆盖样式
+                                style: {}
+                            }, {
+                                id: '14',
+                                type: 'end',
+                                name: '结束',
+                                ico: 'el-icon-switch-button',
                                 // 自定义覆盖样式
                                 style: {}
                             }
