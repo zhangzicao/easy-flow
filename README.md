@@ -1,31 +1,13 @@
 # easy-flow
 
-## 演示地址
-> 感谢码云平台给了一个免费的Gitee Pages服务, 可能访问有点慢
-
-[演示地址](http://xiaoka2017.gitee.io/easy-flow/#?_blank)
-
-## 效果图
-
-![](https://gitee.com/xiaoka2017/resource/raw/master/easy-flow/2.2.0/1.png)
-
-
-
-![](https://gitee.com/xiaoka2017/resource/raw/master/easy-flow/2.3.0/3.jpg)
-
-
-
-![](https://gitee.com/xiaoka2017/resource/raw/master/easy-flow/2.2.0/2.png)
-
-
-
-
-
 ## 项目介绍
 `easy-flow` 基于VUE+ElementUI+JsPlumb的流程设计器，通过 vuedraggable 插件来实现节点拖拽。
 
 
 ## 功能介绍
+* 支持自定义节点内容
+* 支持自定义表单编辑
+* 支持自定义状态
 * 支持拖拽添加节点
 * 点击线进行设置条件
 * 支持给定数据加载流程图
@@ -34,6 +16,10 @@
 * 支持力导图
 
 ## 更新日志
+
+2020年11月26日
+
+* 新UI；提供组件属性来配置，实现业务和组件的分离；新增自定义状态、节点内容、表单
 
 2020年11月12日
 
@@ -95,7 +81,7 @@
 
 ## 操作说明
 * 左侧菜单子节点可以拖拽，将其拖拽到右侧画板中松开鼠标即可添加一个节点
-* 节点分为3部分，左边为标识节点的图标，中间节点的描述，右变为节点的状态图标，鼠标从左变图标上可以拖拽出连线，可以连接其他节点，拖动左侧图标以外位置可以改变节点在页面的位置
+* 节点分为2部分，左边为标识节点的图标，中间节点的描述，鼠标从内部部分上可以拖拽出连线，可以连接其他节点，拖动其他位置可以改变节点在页面的位置
 
 ## 数据格式
 ``` json
@@ -108,9 +94,7 @@
             name: '流程D-节点A',
             type: 'task',
             left: '18px',
-            top: '223px',
-            ico: 'el-icon-user-solid',
-            state: 'success'
+            top: '223px'
         },
         {
             id: 'nodeB',
@@ -118,26 +102,20 @@
             name: '流程D-节点B',
             left: '351px',
             top: '96px',
-            ico: 'el-icon-goods',
-            viewOnly: true,
-            state: 'error'
+            viewOnly: true
         },
         {
             id: 'nodeC',
             name: '流程D-节点C',
             type: 'task',
             left: '354px',
-            top: '351px',
-            ico: 'el-icon-present',
-            state: 'warning'
+            top: '351px'
         }, {
             id: 'nodeD',
             name: '流程D-节点D',
             type: 'task',
             left: '723px',
-            top: '215px',
-            ico: 'el-icon-present',
-            state: 'running'
+            top: '215px'
         }
     ],
     lineList: [{
@@ -166,21 +144,30 @@
 }
 
 ```
+## FlowPanel 组件参数说明
+|    参数    |    必填    |      描述      |      可选值      |
+| :--------: | :------------: | ---------- | ---------- |
+|  data  |  是  |   节点数据，需使用sync修饰符      |         |
+|  stateList  |  否  |     自定义状态      |           |
+|  formRules | 否 | 节点表单的自定义验证 |  |
+|  viewMode  |  否  | 是否开启只预览模式  |
+
 ## data 参数说明
 |    参数    |      描述      |
 | :--------: | :------------: |
 |  name  |     流程图名称      |
+|  nodeList  |     流程图节点数组      |
+|  lineList  |     流程图线数组      |
 
 ## nodeList 参数说明
 |    参数    |    必填    |      描述      |      可选值      |
 | :--------: | :------------: | ---------- | ---------- |
 |  id  |  是  |     标识唯一的节点、可以与业务ID相结合      |           |
 |  name  |  是  |   节点名称      |         |
-| type | 是 | 节点类型，可以和业务相结合做处理 |  |
+|  type | 是 | 节点类型，可以和业务相结合做处理 |  |
 |  left  |  是  | 节点在页面上的X坐标，以px结尾  |         |
 |  top  |  是  |  节点在页面上的Y坐标，以px结尾 |         |
-|  ico  |  是  |   节点显示的图标，标识   |         |
-|  state  |  否  |   状态，状态不同右侧展示的图标不同   | success、error、warning、running |
+|  state  |  否  |   状态 |
 |  viewOnly  |  否  |   是否仅用于浏览，true: 不可拖拽   | true 、false|
 
 
@@ -195,6 +182,13 @@
 | anchors | 否 | 连线的起始锚点位置，如：["Top","Right"] | ['Top', 'TopCenter', 'TopRight', 'TopLeft', 'Right', 'RightMiddle', 'Bottom', 'BottomCenter', 'BottomRight', 'BottomLeft', 'Left', 'LeftMiddle'], |
 | connector | 否 | 连线类型 | StateMachine、Flowchart，Bezier、Straight |
 
+## stateList 参数说明
+|    参数    |      描述      |
+| :--------: | :------------: |
+|  state  |     状态的值      |
+|  label  |     状态的名称      |
+|  color  |     该状态下节点的颜色      |
+
 ## 如何集成
 
 - 下载源码
@@ -203,20 +197,17 @@
 
   ```js
     "element-ui": "2.9.1",
-    "lodash": "4.17.15",
     "vue": "^2.5.2",
-    "vue-codemirror": "^4.0.6",
     "vuedraggable": "2.23.0"
   ```
 
-- 将easy-flow/src/components/ef 目录复制到自己工程的一个目录下（如/src/views）
+- 将easy-flow/src/components/flowPanel 目录复制到自己工程的一个目录下（如/src/views）
 
 - 修改main.js，引入elementUI和easy-flow样式
 
   ```js
   import ElementUI from 'element-ui'
   import 'element-ui/lib/theme-chalk/index.css'
-  import '@/这个为复制后的目录，src就不要写了/ef/index.css'
   Vue.use(ElementUI, {size: 'small'})
   ```
 
@@ -236,18 +227,6 @@ npm run dev
 # 访问地址
  http://localhost:8080
 ```
-
-## github
-https://github.com/BiaoChengLiu/easy-flow
-
-## 码云
-https://gitee.com/xiaoka2017/easy-flow
-
-## 交流群
-
-QQ群：534446043
-
-![avatar](https://gitee.com/xiaoka2017/resource/raw/master/easy-flow/qrcode_1575887795029.jpg)
 
 ## 协议
 符合项目package.json中使用的插件中规定的协议即可
